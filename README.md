@@ -1,36 +1,46 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# REYRA Inventory
 
-# Run and deploy your AI Studio app
+REYRA Inventory is a business operations app for managing a product catalog, stock, purchasing, sales, customers, and invoices in one workspace. Its dashboard and reports bring day-to-day activity together, while barcode tools, global search, and data backup help teams handle routine work.
 
-This contains everything you need to run your app locally.
+## Product areas
 
-View your app in AI Studio: https://ai.studio/apps/aa01563c-7aa5-4193-b890-ac0a1790390d
+- **Dashboard:** View sales and order activity, procurement totals, fulfillment progress, and inventory health over selectable date ranges. Low-stock items are highlighted for follow-up.
+- **Products:** Maintain products and variants, SKUs, barcodes, pricing, discounts, and product details. Find items by name, SKU, or barcode, and create printable barcode labels.
+- **Inventory:** Review stock levels and low-stock items, record adjustments, and track stock movement history. Sales, purchases, returns, and cancellations update stock through the inventory workflow.
+- **Sales and orders:** Create customer orders, associate sales channels, follow order statuses, manage customer records, and process returns.
+- **Invoices:** Generate invoices from orders, review invoice details, and print or download invoices as PDF or standalone HTML.
+- **Procurement:** Maintain supplier purchase records and purchase line items, and record received stock.
+- **Reports and analytics:** Review sales, product, and sales-channel summaries; generate period-based statements; export order data as CSV; and create a full data backup.
+- **Settings:** Configure business details, logo, currency, tax, invoice and purchase numbering, stock thresholds, negative-stock behavior, and terms and conditions. Theme and role-specific access options are also available.
+- **Global search:** Search products, variants, orders, purchases, and customers from a single interface, then navigate directly to a matching record.
+- **AI assistant:** Ask inventory, sales, or procurement questions using a business-data snapshot from the app. The assistant uses the Gemini API through the app's server endpoint.
 
-## Run Locally
+## Business workflows
 
-**Prerequisites:**  Node.js
+The app connects common inventory operations. Purchase records represent incoming goods; sales orders represent outgoing goods; returns and order cancellations reconcile stock and record movement history. Order records can be used to create invoices, while reports summarize order and catalog activity for review.
 
+Products can be tracked as single items or as variant-based products. SKU and barcode fields support both manual lookup and barcode scanning. USB/HID scanners can enter scanned codes directly into the app, and camera-based scanning is available through the barcode scanner interface.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Access and data
 
-## Windows Desktop App
+The interface includes role-aware access for **admin**, **manager**, **sales**, **inventory**, **purchase**, and **viewer** roles. The intended permissions vary by role, from broad administration to focused sales, stock, or purchasing work and read-only access.
 
-1. Install dependencies with `npm install`.
-2. Build the installer with `npm run build:desktop`.
-3. Find `REYRA Inventory Setup 1.0.0.exe` in the `release` folder and run it.
+Business records, settings, authentication session details, and theme preference are currently persisted in the browser's local storage. This makes the application usable without a continuously connected database, but local browser data is specific to that browser profile and device. The Reports and Settings areas provide export and backup/restore tools for moving or preserving data.
 
-To launch the desktop app without creating an installer, run `npm run desktop` after building with `npm run build:desktop` (the build command also creates the installer).
+The repository includes a Supabase client configuration and a database migration for a hosted schema. The current application data service uses browser local storage; the presence of the Supabase schema does not by itself synchronize local records to a Supabase project.
 
-Inventory data is stored locally in the app. The AI assistant requires the server's `/api/chat` endpoint and a configured `GEMINI_API_KEY`; it is not available in the standalone desktop installer.
+The AI assistant requires the application's server endpoint and a configured Gemini API key. When a question is sent, the app may include a snapshot of relevant catalog, inventory, order, and purchase information as context for the response.
 
-## Android APK
+## Experience
 
-The Android build requires Node.js, Java 21, and the Android SDK (platform 35 and build tools 35.0.0). With the Android SDK configured in `ANDROID_HOME`, run `npm install` and then `npm run build:android`. The sideloadable debug APK is created at `release/REYRA-Inventory-1.0.0.apk`. Android may ask you to allow installs from the app you use to open the APK.
+REYRA Inventory is a responsive React and TypeScript application styled with Tailwind CSS. It includes light and dark themes, chart-based dashboards, installable Progressive Web App support, and mobile-friendly layouts. The codebase also contains Android/Capacitor and Windows/Electron packaging projects.
 
-The APK stores inventory data locally. The AI assistant needs the `/api/chat` backend and a configured `GEMINI_API_KEY`; it is not available in the standalone APK.
+## Technology
+
+- React 19 and TypeScript
+- Vite and Tailwind CSS
+- Express server with the Google Gemini API integration
+- Browser local storage for application data
+- Supabase client and SQL schema assets
+- Capacitor for Android packaging
+- Electron for Windows desktop packaging
