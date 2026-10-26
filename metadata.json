@@ -1,0 +1,6 @@
+{
+  "name": "REYRA Inventory",
+  "description": "A professional lightweight inventory, sales, purchase, and invoice management desktop and web application.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
